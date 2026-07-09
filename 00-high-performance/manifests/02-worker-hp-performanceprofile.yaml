@@ -1,0 +1,25 @@
+apiVersion: performance.openshift.io/v2
+kind: PerformanceProfile
+metadata:
+  name: worker-hp
+spec:
+  cpu:
+    reserved: "0-7"
+    isolated: "8-19"
+  hugepages:
+    defaultHugepagesSize: 2M
+    pages:
+    - count: 1024
+      size: 2M
+  machineConfigPoolSelector:
+    pools.operator.machineconfiguration.openshift.io/worker-hp: ""
+  nodeSelector:
+    node-role.kubernetes.io/worker-hp: ""
+  numa:
+    topologyPolicy: single-numa-node
+  realTimeKernel:
+    enabled: false
+  workloadHints:
+    highPowerConsumption: false
+    perPodPowerManagement: false
+    realTime: false
